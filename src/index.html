@@ -9,7 +9,12 @@
         <div class="navbar-item">
           <div class="field has-addons">
             <div class="control">
-              <input class="input username" type="text" placeholder="enter github username" />
+              <input
+                class="input username input-username"
+                type="text"
+                pattern="^[a-zA-Z0-9_-]+$"
+                placeholder="enter github username"
+              />
             </div>
             <div class="control">
               <button class="button is-info load-username">
@@ -63,8 +68,8 @@
                 <div class="content">
                   <span class="gh-username">
                     <img src="https://avatars.githubusercontent.com/u/2310778?" />
-                    <a href="https://github.com/sethii">sethii</a>
                   </span>
+                  <a href="https://github.com/sethii">sethii</a>
                   closed
                   <a href="https://github.com/TheSoftwareHouse/Kakunin/pull/41">pull request</a>
                   <p class="repo-name">
