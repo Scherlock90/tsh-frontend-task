@@ -6,7 +6,7 @@ const appService = new AppService();
 
 export class App {
   initializeApp() {
-    appService.initializeOrUpdateProfile();
+    appService.initializedOrUpdated();
     appService.validation();
   }
 }
