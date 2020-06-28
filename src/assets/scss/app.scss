@@ -1,19 +1,31 @@
-@import "~bulma";
-@import "~bulma-timeline";
+@import '~bulma';
+@import '~bulma-timeline';
 
 .navbar {
   border-bottom: 1px solid #eee;
   margin-bottom: 8px;
 }
 
-.gh-username img{
-  width: 32px;
+.gh-username {
+  img {
+    width: 32px;
+    border-radius: 100%;
+    vertical-align: middle;
+  }
 }
 
-#profile-bio{
-  margin-top:10px;
+#profile-bio {
+  margin-top: 10px;
 }
 
-.timeline .timeline-item {
-  padding-bottom:1em;
+.timeline {
+  .timeline-item {
+    padding-bottom: 1em;
+  }
+}
+
+.profile {
+  img {
+    border-radius: 100%;
+  }
 }

@@ -1,17 +1,15 @@
 const path = require('path'),
-  webpack = require('webpack'),
   CleanWebpackPlugin = require('clean-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const extractPlugin = new ExtractTextPlugin({filename: './assets/css/app.css'});
+const extractPlugin = new ExtractTextPlugin({ filename: './assets/css/app.css' });
 
 const config = {
-
   context: path.resolve(__dirname, 'src'),
 
   entry: {
-    app: './index.js'
+    app: ['./polyfills/polyfills.js', './index.js']
   },
 
   output: {
@@ -21,13 +19,12 @@ const config = {
 
   module: {
     rules: [
-
       {
         test: /\.js$/,
         include: /src/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: ['env']
           }
@@ -46,7 +43,8 @@ const config = {
               options: {
                 sourceMap: true
               }
-            }, {
+            },
+            {
               loader: 'sass-loader',
               options: {
                 sourceMap: true
@@ -72,18 +70,13 @@ const config = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ['file-loader']
       }
-
     ]
   },
 
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({template: 'index.html'}),
-    extractPlugin
-  ],
+  plugins: [new CleanWebpackPlugin(['dist']), new HtmlWebpackPlugin({ template: 'index.html' }), extractPlugin],
 
   devServer: {
-    contentBase: path.resolve(__dirname, "./dist/assets/media"),
+    contentBase: path.resolve(__dirname, './dist/assets/media'),
     compress: true,
     port: 2000,
     stats: 'errors-only',
@@ -91,7 +84,6 @@ const config = {
   },
 
   devtool: 'inline-source-map'
-
 };
 
 module.exports = config;
