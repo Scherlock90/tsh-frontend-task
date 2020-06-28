@@ -9,7 +9,9 @@ import {
   checkedString,
   classNameToggle,
   formattedDate,
-  toggleClass
+  toggleContainer,
+  toggleErrorClass,
+  toggleSpinnerClass
 } from '../utils/utils';
 import { fakeData } from '../data/Data';
 
@@ -25,20 +27,23 @@ export class AppService {
 
       if (checkedString(userName)) {
         try {
-          this.updatedProfile(userName);
-          this.updatedHistoryEvents(userName);
+          toggleSpinnerClass($, 'removeClass');
+          toggleContainer($, 'addClass');
 
-          toggleClass($, 'removeClass');
+          this.searchedProfile(userName);
+          this.searchedHistoryEvents(userName);
+
+          toggleErrorClass($, 'removeClass');
         } catch (err) {
           console.log(err);
         }
       } else {
-        return toggleClass($, 'addClass');
+        return toggleErrorClass($, 'addClass');
       }
     });
   }
 
-  updatedProfile(userName) {
+  searchedProfile(userName) {
     userService.getUserDetails(userName).then((data) => {
       if (!data) return;
 
@@ -47,7 +52,7 @@ export class AppService {
     });
   }
 
-  updatedHistoryEvents(userName) {
+  searchedHistoryEvents(userName) {
     eventsService.getEventsDetails(userName).then((data) => {
       if (!data) return;
 
@@ -83,11 +88,15 @@ export class AppService {
   }
 
   updateHistory() {
-    if (this.history.message) return $('#user-timeline').text('Not found history');
+    if (this.history.message) {
+      $('#user-timeline').text('Not found history');
+      toggleSpinnerClass($, 'addClass');
+      toggleContainer($, 'removeClass');
+      return;
+    }
 
     let container = document.getElementById('user-timeline');
     container.innerHTML = '';
-
     this.history
       .filter(({ type }) => type === 'PullRequestEvent' || type === 'PullRequestReviewCommentEvent')
       .map(({ type, created_at, payload, repo: { name } }) => {
@@ -112,14 +121,17 @@ export class AppService {
 
         container.innerHTML += content;
       });
+
+    toggleSpinnerClass($, 'addClass');
+    toggleContainer($, 'removeClass');
   }
 
   updateProfile() {
     const { login, avatar_url, html_url, bio } = this.profile;
-    const userName = this.profile.message ? this.profile.message : $('.username.input').val();
+    const conditionName = this.profile.message ? this.profile.message : $('.username.input').val();
 
-    $('#profile-name').text(userName);
-    $('#profile-image').attr('src', avatar_url || '');
+    $('#profile-name').text(conditionName);
+    $('#profile-image').attr('src', avatar_url);
     $('#profile-url')
       .attr('href', html_url || '')
       .text(login || '');
@@ -130,9 +142,9 @@ export class AppService {
     $('.input-username').on('change', () => {
       const userName = $('.username.input').val();
 
-      if (!checkedString(userName)) return toggleClass($, 'addClass');
+      if (!checkedString(userName)) return toggleErrorClass($, 'addClass');
 
-      return toggleClass($, 'removeClass');
+      return toggleErrorClass($, 'removeClass');
     });
   }
 }

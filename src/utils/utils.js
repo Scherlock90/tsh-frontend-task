@@ -4,8 +4,16 @@ export const checkedString = (userName) => {
   return regex.test(userName);
 };
 
-export const toggleClass = (cashDom, removeOrAddClass) => {
+export const toggleErrorClass = (cashDom, removeOrAddClass) => {
   return cashDom('.input-username')[removeOrAddClass]('input-username__error');
+};
+
+export const toggleSpinnerClass = (cashDom, removeOrAddClass) => {
+  return cashDom('#spinner')[removeOrAddClass]('is-hidden');
+};
+
+export const toggleContainer = (cashDom, removeOrAddClass) => {
+  return cashDom('#container')[removeOrAddClass]('is-hidden-container');
 };
 
 export const formattedDate = (date) => {
