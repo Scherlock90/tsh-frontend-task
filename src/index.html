@@ -11,14 +11,16 @@
           <div class="field has-addons">
             <div class="control">
               <input
+                id="input-username"
                 class="input username input-username"
                 type="text"
                 pattern="^[a-zA-Z0-9_-]+$"
                 placeholder="enter github username"
+                onkeypress
               />
             </div>
             <div class="control">
-              <button class="button is-info load-username">
+              <button class="button is-info load-username" id="load-username">
                 Load
               </button>
             </div>

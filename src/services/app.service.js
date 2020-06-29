@@ -21,6 +21,7 @@ const eventsService = ServiceFactory.get('eventsDetails');
 export class AppService {
   initializedOrUpdated() {
     this.initialHistory();
+    this.triggerSearchedProfileAndHistory();
 
     $('.load-username').on('click', () => {
       const userName = $('.username.input').val();
@@ -39,6 +40,17 @@ export class AppService {
         }
       } else {
         return toggleErrorClass($, 'addClass');
+      }
+    });
+  }
+
+  triggerSearchedProfileAndHistory() {
+    const input = document.getElementById('input-username');
+
+    input.addEventListener('keyup', function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById('load-username').click();
       }
     });
   }
@@ -99,6 +111,7 @@ export class AppService {
 
     let container = document.getElementById('user-timeline');
     container.innerHTML = '';
+
     this.history
       .filter(({ type }) => type === 'PullRequestEvent' || type === 'PullRequestReviewCommentEvent')
       .map(({ type, created_at, payload, repo: { name } }) => {
