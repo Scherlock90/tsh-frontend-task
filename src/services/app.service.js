@@ -43,22 +43,24 @@ export class AppService {
     });
   }
 
-  searchedProfile(userName) {
-    userService.getUserDetails(userName).then((data) => {
-      if (!data) return;
+  async searchedProfile(userName) {
+    const response = await userService.getUserDetails(userName);
+    const data = await response.json();
 
-      this.profile = data;
-      this.updateProfile();
-    });
+    if (!data) return;
+
+    this.profile = data;
+    this.updateProfile();
   }
 
-  searchedHistoryEvents(userName) {
-    eventsService.getEventsDetails(userName).then((data) => {
-      if (!data) return;
+  async searchedHistoryEvents(userName) {
+    const response = await eventsService.getEventsDetails(userName);
+    const data = await response.json();
 
-      this.history = data;
-      this.updateHistory();
-    });
+    if (!data) return;
+
+    this.history = data;
+    this.updateHistory();
   }
 
   initialHistory() {
@@ -127,11 +129,12 @@ export class AppService {
   }
 
   updateProfile() {
-    const { login, avatar_url, html_url, bio } = this.profile;
     const conditionName = this.profile.message ? this.profile.message : $('.username.input').val();
 
+    const { login, avatar_url, html_url, bio } = this.profile;
+
     $('#profile-name').text(conditionName);
-    $('#profile-image').attr('src', avatar_url);
+    $('#profile-image').attr('src', avatar_url || '');
     $('#profile-url')
       .attr('href', html_url || '')
       .text(login || '');

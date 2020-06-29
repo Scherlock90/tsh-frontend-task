@@ -4,8 +4,6 @@ const userDetailEndpoint = 'https://api.github.com/users/';
 
 export default {
   getUserDetails(userName) {
-    return HTTP(userDetailEndpoint + userName).then((response) => {
-      return response.json();
-    });
+    return HTTP(userDetailEndpoint + userName);
   }
 };

@@ -1,6 +1,10 @@
 @import '~bulma';
 @import '~bulma-timeline';
 
+body {
+  padding: 1rem;
+}
+
 .navbar {
   border-bottom: 1px solid #eee;
   margin-bottom: 8px;

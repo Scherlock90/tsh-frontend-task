@@ -4,8 +4,6 @@ const eventDetailsEndpoint = (username) => `https://api.github.com/users/${usern
 
 export default {
   getEventsDetails(userName) {
-    return HTTP(eventDetailsEndpoint(userName)).then((response) => {
-      return response.json();
-    });
+    return HTTP(eventDetailsEndpoint(userName));
   }
 };
