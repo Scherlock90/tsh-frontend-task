@@ -6,14 +6,14 @@ const path = require('path'),
 const extractPlugin = new ExtractTextPlugin({ filename: './assets/css/app.css' });
 
 const config = {
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve(__dirname, '../src'),
 
   entry: {
     app: ['./polyfills/polyfills.js', './index.js']
   },
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: './assets/js/[name].bundle.js'
   },
 
@@ -73,17 +73,7 @@ const config = {
     ]
   },
 
-  plugins: [new CleanWebpackPlugin(['dist']), new HtmlWebpackPlugin({ template: 'index.html' }), extractPlugin],
-
-  devServer: {
-    contentBase: path.resolve(__dirname, './dist/assets/media'),
-    compress: true,
-    port: 2000,
-    stats: 'errors-only',
-    open: true
-  },
-
-  devtool: 'inline-source-map'
+  plugins: [new CleanWebpackPlugin(['dist']), new HtmlWebpackPlugin({ template: 'index.html' }), extractPlugin]
 };
 
 module.exports = config;

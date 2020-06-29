@@ -104,7 +104,7 @@ export class AppService {
       .map(({ type, created_at, payload, repo: { name } }) => {
         const {
           action,
-          pull_request: { url }
+          pull_request: { html_url }
         } = payload;
 
         const { dateToShow } = formattedDate(created_at);
@@ -115,7 +115,7 @@ export class AppService {
           checkedPayload(payload, 'avatar_url'),
           action,
           type,
-          url,
+          html_url,
           name,
           classNameToggle(payload),
           checkedComment(payload, 'html_url')

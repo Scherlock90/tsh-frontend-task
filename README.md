@@ -23,7 +23,13 @@ yarn
 ## Build production-ready app
 
 ```
-yarn build
+yarn build:prod
+```
+
+## Build develop-ready app
+
+```
+yarn build:dev
 ```
 
 # Technical details
